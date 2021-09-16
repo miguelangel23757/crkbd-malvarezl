@@ -25,8 +25,11 @@ enum layers {
   _QWERTY,
   _LOWER,
   _RAISE,
-  _ADJUST
+  _ADJUST,
+  _NUMPAD
 };
+
+#define TAB_NUM LT(_NUMPAD, KC_TAB)
 
 enum {
     TD_CAPLOCK
@@ -46,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_TAB ,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
+      TAB_NUM ,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
   TD(TD_CAPLOCK), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, ES_NTIL, ES_ACUT ,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -100,6 +103,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           KC_LALT,  _______, KC_SPC,     KC_ENT, MO(_ADJUST), KC_LGUI
                                       //`--------------------------'  `--------------------------'
   ),
+  
+  // numpad
+	[_NUMPAD] = LAYOUT(
+	//,-----------------------------------------------------.                    ,-----------------------------------------------------.
+	LT(0,KC_NO),   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, 					   KC_PAST,   KC_P7,   KC_P8,   KC_P9, KC_ASTR, KC_BSPC,
+	//|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+	      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, 					   KC_PMNS,   KC_P4,   KC_P5,   KC_P6,  KC_EQL,  KC_DEL,
+	//|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+		  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, 					   KC_PPLS,   KC_P1,   KC_P2,   KC_P3, KC_SLSH,   KC_NO,
+	//|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+									   OSM(MOD_MEH),   KC_NO,   KC_TRNS,     KC_ENT,   KC_P0,  KC_PDOT
+										//`--------------------------'  `--------------------------'
+	),
+
 
   [_ADJUST] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -140,6 +157,9 @@ void oled_render_layer_state(void) {
         case _QWERTY:
             oled_write_ln_P(PSTR("QWERTY"), false);
             break;
+        case _NUMPAD:
+            oled_write_ln_P(PSTR("NUMPAD"), false);
+            break;
         case _LOWER:
             oled_write_ln_P(PSTR("LOWER"), false);
             break;
@@ -147,7 +167,7 @@ void oled_render_layer_state(void) {
             oled_write_ln_P(PSTR("RAISE"), false);
             break;
         case _ADJUST:
-            oled_write_ln_P(PSTR("Adjust"), false);
+            oled_write_ln_P(PSTR("ADJUST"), false);
             break;
     }
 }
@@ -225,12 +245,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef RGB_MATRIX_ENABLE
 
-void suspend_power_down_user(void) {
-    rgb_matrix_disable();
-}
 
-void suspend_wakeup_init_user(void) {
-    rgb_matrix_enable();
+void rgb_matrix_indicators_user(void) {
+  #ifdef RGB_MATRIX_ENABLE
+  switch (biton32(layer_state)) {
+    case _RAISE:
+            rgb_matrix_set_color(   15, 0, 255, 0);
+
+      break;
+
+    case _LOWER:    
+            rgb_matrix_set_color(20, 0, 255, 0);
+    
+      break;
+
+    default:
+        if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+            rgb_matrix_set_color(10, 0, 255, 0);
+        }
+      break;
+  }
+  #endif
 }
 
 #endif
