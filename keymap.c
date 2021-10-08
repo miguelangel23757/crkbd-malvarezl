@@ -26,13 +26,19 @@ enum layers {
   _LOWER,
   _RAISE,
   _ADJUST,
-  _NUMPAD
+  _NUMPAD,
+  _PHPSTORM
 };
 
 #define TAB_NUM LT(_NUMPAD, KC_TAB)
+#define TAB_LOWER LT(_LOWER, KC_ESC)
+#define LY_PHPSTORM LT(_PHPSTORM, KC_ENT)
+
 
 enum {
-    TD_CAPLOCK
+    TD_CAPLOCK,
+    TD_MENU,
+    TD_PHPSTORM
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -48,15 +54,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                                    `--------------------------'  `--------------------------'
 
   [_QWERTY] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      TAB_NUM ,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-  TD(TD_CAPLOCK), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, ES_NTIL, ES_ACUT ,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, ES_COMM,  ES_DOT, ES_MINS, KC_ESC ,
-  //|--------+--------+--------+--------+--------+--------+----------|  |--------+--------+--------+--------+--------+--------+--------|
-                                        KC_LALT, MO(_RAISE), KC_SPC,    KC_ENT, MO(_LOWER), KC_LGUI
-                                      //`----------------------------'  `--------------------------'
+  //,---------------------------------------------------------------.                    ,-------------------------------------------------------.
+           TAB_NUM    ,   KC_Q  ,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC ,
+  //|-----------------+---------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+----------|
+      TD(TD_CAPLOCK)  ,   KC_A  ,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, ES_NTIL, ES_ACUT ,
+  //|-----------------+---------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+----------|
+          KC_LCTL     ,   KC_Z  ,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, ES_COMM,  ES_DOT, ES_MINS, KC_DEL  ,
+  //|-----------------+---------+--------+--------+--------+--------+----------|  |--------+--------+--------+--------+--------+--------+--------|
+                                                   KC_LALT, MO(_RAISE), KC_SPC,    LY_PHPSTORM, TAB_LOWER , TD(TD_MENU)
+                                                //`----------------------------'  `------------------------------'
 
   ),
 
@@ -70,15 +76,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                                        LALT , _______,  KC_SPC,     KC_ENT,   MO(3), KC_LGUI
 
   [_LOWER] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB,  ES_1,    ES_2,    ES_3,    ES_4,    ES_5,                         ES_6    ,    ES_7 ,    ES_8    ,    ES_9  ,   ES_0   , KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-  TD(TD_CAPLOCK),KC_F1 ,  KC_F2 ,  KC_F3 ,  KC_F4 ,  KC_F5 ,                      KC_F12  , XXXXXXX ,    KC_UP   , XXXXXXX  ,  KC_HOME , KC_END,
-  //|--------+--------+--------+--------+--------+--------|                    |----------+---------+------------+----------+---------+--------|
-      KC_LCTL,  KC_F6,   KC_F7 ,  KC_F8 ,  KC_F9,   KC_F10,                      KC_F11   , KC_LEFT ,   KC_DOWN  , KC_RIGHT ,  XXXXXXX , XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                    KC_LALT, MO(_ADJUST),  KC_SPC,     KC_ENT, _______  , KC_LGUI
-                                      //`--------------------------'  `--------------------------'
+  //,-------------------------------------------------------------------------.                    ,-------------------------------------------------------------------.
+          KC_TAB     ,  KC_F1   ,   KC_F2  ,   KC_F3  ,   KC_F4  ,   KC_F5  ,                         XXXXXXX  ,  XXXXXXX ,  XXXXXXX   ,  XXXXXXX  ,  XXXXXXX , KC_BSPC,
+  //|--------+--------+--------+--------+--------+----------------------------|                    |--------+--------+--------+--------+--------+-----------------------|
+      TD(TD_CAPLOCK) ,  KC_F6   ,   KC_F7  ,   KC_F8  ,   KC_F9  ,   KC_F10 ,                         XXXXXXX  ,  KC_HOME ,   KC_UP    ,  KC_END   ,  XXXXXXX , XXXXXXX,
+  //|--------+--------+--------+--------+--------+----------------------------|                    |----------+---------+------------+----------+---------+-------------|
+          KC_LCTL    ,  KC_F11  ,   KC_F12 ,  XXXXXXX ,  XXXXXXX ,  XXXXXXX ,                         XXXXXXX  ,  KC_LEFT ,   KC_DOWN  ,  KC_RIGHT ,  XXXXXXX , XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------+---------------------------|  |--------+--------+--------+--------+--------+--------+------------------------|
+                                                        KC_LALT, MO(_ADJUST),  KC_SPC,     KC_ENT, _______  , KC_LGUI
+                                                         //`--------------------------'  `--------------------------'
   ),
 
 
@@ -93,15 +99,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
 
   [_RAISE] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+  //,--------------------------------------------------------------.                    ,-----------------------------------------------------.
       KC_TAB , ES_EXLM ,  ES_AT , ES_HASH ,  ES_DLR, ES_PERC ,                   ES_QUOT , ES_DQUO ,  ES_LPRN, ES_RPRN, ES_SLSH , ES_ASTR ,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-   TD(TD_CAPLOCK), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                  ES_DLR ,  ES_EQL, ES_LBRC, ES_RBRC, ES_BSLS,  ES_GRV,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+  //|--------+--------+------- -+--------+--------+-----------------|                    |--------+--------+--------+--------+--------+--------|
+   TD(TD_CAPLOCK), XXXXXXX, XXXXXXX, XXXXXXX, ES_IQUE , ES_QUES ,                  ES_DLR ,  ES_EQL, ES_LBRC, ES_RBRC, ES_BSLS,  ES_GRV,
+  //|--------+--------+--------+--------+--------+-----------------|                    |--------+--------+--------+--------+--------+--------|
       KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      ES_LABK , ES_RABK , ES_LCBR , ES_RCBR , ES_PIPE, ES_AMPR,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LALT,  _______, KC_SPC,     KC_ENT, MO(_ADJUST), KC_LGUI
-                                      //`--------------------------'  `--------------------------'
+  //|-------------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                             KC_LALT,  _______, KC_SPC,     KC_ENT, MO(_ADJUST), KC_LGUI
+                                           //`--------------------------'  `--------------------------'
   ),
   
   // numpad
@@ -120,13 +126,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LALT, _______,  KC_SPC,     KC_ENT, _______, KC_LGUI
+                                      //`--------------------------'  `--------------------------'
+  ),
+
+  [_PHPSTORM] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      XXXXXXX, LALT(ES_1) , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX,  XXXXXXX   , XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX,  XXXXXXX   , XXXXXXX, LCTL(KC_PMNS), XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          KC_LALT, _______,  KC_SPC,     _______, _______, KC_LGUI
                                       //`--------------------------'  `--------------------------'
   )
 };
@@ -135,6 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 qk_tap_dance_action_t tap_dance_actions[] = {
     // Tap once for ;, twice for :
     [TD_CAPLOCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
+    [TD_MENU] = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, KC_APP),
 };
 
 
@@ -169,6 +188,10 @@ void oled_render_layer_state(void) {
         case _ADJUST:
             oled_write_ln_P(PSTR("ADJUST"), false);
             break;
+        case _PHPSTORM:
+            oled_write_ln_P(PSTR("PHPSTORM"), false);
+            break;
+            
     }
 }
 
