@@ -33,6 +33,7 @@ enum layers {
 #define TAB_NUM LT(_NUMPAD, KC_TAB)
 #define TAB_LOWER LT(_LOWER, KC_ESC)
 #define LY_PHPSTORM LT(_PHPSTORM, KC_ENT)
+#define LY_ADJUST LT(_ADJUST, KC_ENT)
 
 
 enum {
@@ -100,11 +101,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT_split_3x6_3(
   //,--------------------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_TAB , ES_EXLM ,  ES_AT , ES_HASH ,  ES_DLR, ES_PERC ,                   ES_QUOT , ES_DQUO ,  ES_LPRN, ES_RPRN, ES_SLSH , ES_ASTR ,
+         KC_TAB      , ES_EXLM ,  ES_AT , ES_HASH ,  ES_DLR, ES_PERC ,                   ES_QUOT , ES_DQUO ,  ES_LPRN, ES_RPRN, ES_SLSH , ES_ASTR ,
   //|--------+--------+------- -+--------+--------+-----------------|                    |--------+--------+--------+--------+--------+--------|
-   TD(TD_CAPLOCK), XXXXXXX, XXXXXXX, XXXXXXX, ES_IQUE , ES_QUES ,                  ES_DLR ,  ES_EQL, ES_LBRC, ES_RBRC, ES_BSLS,  ES_GRV,
+      TD(TD_CAPLOCK) , XXXXXXX, XXXXXXX, XXXXXXX, ES_IQUE , ES_QUES ,                  ES_DLR ,  ES_EQL, ES_LBRC, ES_RBRC, ES_BSLS,  ES_GRV,
   //|--------+--------+--------+--------+--------+-----------------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      ES_LABK , ES_RABK , ES_LCBR , ES_RCBR , ES_PIPE, ES_AMPR,
+         KC_LCTL     , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LY_ADJUST,                      ES_LABK , ES_RABK , ES_LCBR , ES_RCBR , ES_PIPE, ES_AMPR,
   //|-------------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                              KC_LALT,  _______, KC_SPC,     KC_ENT, MO(_ADJUST), KC_LGUI
                                            //`--------------------------'  `--------------------------'
@@ -137,15 +138,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_PHPSTORM] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, LALT(ES_1) , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX,  XXXXXXX   , XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX,  XXXXXXX   , XXXXXXX, LCTL(KC_PMNS), XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LALT, _______,  KC_SPC,     _______, _______, KC_LGUI
-                                      //`--------------------------'  `--------------------------'
+  //,---------------------------------------------------------------------------.                    ,-----------------------------------------------------.
+      XXXXXXX, LALT(ES_1) , XXXXXXX,   XXXXXXX     ,  XXXXXXX  ,  LALT(KC_F12) ,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+------------------------------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX,  XXXXXXX   , XXXXXXX,   XXXXXXX     , LCA(KC_L) ,     XXXXXXX   ,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+------------------------------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX,  XXXXXXX   , XXXXXXX, LCTL(KC_PMNS) ,  XXXXXXX  ,     XXXXXXX   ,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------+------------------------------|  |--------+--------+--------+--------+--------+--------+--------|
+                                                               KC_LALT, _______,  KC_SPC,     _______, _______, KC_LGUI
+                                                            //`--------------------------'  `--------------------------'
   )
 };
 
