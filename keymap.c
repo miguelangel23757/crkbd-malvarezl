@@ -114,13 +114,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // numpad
 	[_NUMPAD] = LAYOUT(
 	//,-----------------------------------------------------.                    ,-----------------------------------------------------.
-	LT(0,KC_NO),   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, 					   KC_PAST,   KC_P7,   KC_P8,   KC_P9, KC_ASTR, KC_BSPC,
+	    LT(0,KC_NO),   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX, 					   KC_PAST,   KC_P7,   KC_P8,   KC_P9, KC_ASTR, KC_BSPC,
 	//|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-	      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, 					   KC_PMNS,   KC_P4,   KC_P5,   KC_P6,  KC_EQL,  KC_DEL,
+	      XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, 					   KC_PMNS,   KC_P4,   KC_P5,   KC_P6,  KC_EQL,  KC_DEL,
 	//|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-		  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, 					   KC_PPLS,   KC_P1,   KC_P2,   KC_P3, KC_SLSH,   KC_NO,
+		  XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, 					   KC_PPLS,   KC_P1,   KC_P2,   KC_P3, KC_SLSH,   XXXXXXX,
 	//|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-									   OSM(MOD_MEH),   KC_NO,   KC_TRNS,     KC_ENT,   KC_P0,  KC_PDOT
+									   OSM(MOD_MEH),   XXXXXXX,   KC_TRNS,     KC_ENT,   KC_P0,  KC_PDOT
 										//`--------------------------'  `--------------------------'
 	),
 
@@ -274,18 +274,23 @@ void rgb_matrix_indicators_user(void) {
   #ifdef RGB_MATRIX_ENABLE
   switch (biton32(layer_state)) {
     case _RAISE:
-            rgb_matrix_set_color(   15, 0, 255, 0);
-
       break;
 
     case _LOWER:    
-            rgb_matrix_set_color(20, 0, 255, 0);
-    
       break;
 
     default:
         if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
-            rgb_matrix_set_color(10, 0, 255, 0);
+            rgb_matrix_set_color(21, 0, 255, 0);
+            rgb_matrix_set_color(22, 0, 255, 0);
+            rgb_matrix_set_color(23, 0, 255, 0);
+            rgb_matrix_set_color(24, 0, 255, 0);
+            rgb_matrix_set_color(25, 0, 255, 0);
+            rgb_matrix_set_color(26, 0, 255, 0);
+            rgb_matrix_set_color(27, 0, 255, 0);
+            rgb_matrix_set_color(28, 0, 255, 0);
+            rgb_matrix_set_color(29, 0, 255, 0);
+            rgb_matrix_set_color(30, 0, 255, 0);
         }
       break;
   }
