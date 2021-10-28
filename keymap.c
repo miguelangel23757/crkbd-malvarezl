@@ -34,6 +34,7 @@ enum layers {
 #define TAB_LOWER LT(_LOWER, KC_ESC)
 #define LY_PHPSTORM LT(_PHPSTORM, KC_ENT)
 #define LY_ADJUST LT(_ADJUST, KC_ENT)
+#define LY_RAISE LT(_RAISE, KC_TAB)
 
 
 enum {
@@ -62,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-----------------+---------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+----------|
           KC_LCTL     ,   KC_Z  ,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, ES_COMM,  ES_DOT, ES_MINS, KC_DEL  ,
   //|-----------------+---------+--------+--------+--------+--------+----------|  |--------+--------+--------+--------+--------+--------+--------|
-                                                   KC_LALT, MO(_RAISE), KC_SPC,    LY_PHPSTORM, TAB_LOWER , TD(TD_MENU)
+                                                   KC_LALT, LY_RAISE , KC_SPC,    LY_PHPSTORM, TAB_LOWER , TD(TD_MENU)
                                                 //`----------------------------'  `------------------------------'
 
   ),
@@ -101,10 +102,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT_split_3x6_3(
   //,--------------------------------------------------------------.                    ,-----------------------------------------------------.
-         KC_TAB      , ES_EXLM ,  ES_AT , ES_HASH ,  ES_DLR, ES_PERC ,                   ES_QUOT , ES_DQUO ,  ES_LPRN, ES_RPRN, ES_SLSH , ES_ASTR ,
+         KC_TAB      , ES_EXLM ,  ES_AT , ES_HASH ,  ES_DLR, ES_PERC ,                     ES_QUOT , ES_DQUO ,  ES_LPRN, ES_RPRN, ES_SLSH , ES_ASTR ,
   //|--------+--------+------- -+--------+--------+-----------------|                    |--------+--------+--------+--------+--------+--------|
-      TD(TD_CAPLOCK) , XXXXXXX, XXXXXXX, XXXXXXX, ES_IQUE , ES_QUES ,                  ES_DLR ,  ES_EQL, ES_LBRC, ES_RBRC, ES_BSLS,  ES_GRV,
-  //|--------+--------+--------+--------+--------+-----------------|                    |--------+--------+--------+--------+--------+--------|
+      TD(TD_CAPLOCK) , XXXXXXX, XXXXXXX, XXXXXXX, ES_IQUE , ES_QUES ,                      ES_DLR ,  ES_EQL, ES_LBRC, ES_RBRC, ES_BSLS,  ES_GRV,
+  //|--------+--------+--------+--------+--------+-----------------|                     |--------+--------+--------+--------+--------+--------|
          KC_LCTL     , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LY_ADJUST,                      ES_LABK , ES_RABK , ES_LCBR , ES_RCBR , ES_PIPE, ES_AMPR,
   //|-------------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                              KC_LALT,  _______, KC_SPC,     KC_ENT, MO(_ADJUST), KC_LGUI
@@ -113,15 +114,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
   // numpad
 	[_NUMPAD] = LAYOUT(
-	//,-----------------------------------------------------.                    ,-----------------------------------------------------.
-	    LT(0,KC_NO),   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX, 					   KC_PAST,   KC_P7,   KC_P8,   KC_P9, KC_ASTR, KC_BSPC,
-	//|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-	      XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, 					   KC_PMNS,   KC_P4,   KC_P5,   KC_P6,  KC_EQL,  KC_DEL,
-	//|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-		  XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, 					   KC_PPLS,   KC_P1,   KC_P2,   KC_P3, KC_SLSH,   XXXXXXX,
-	//|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-									   OSM(MOD_MEH),   XXXXXXX,   KC_TRNS,     KC_ENT,   KC_P0,  KC_PDOT
-										//`--------------------------'  `--------------------------'
+	//,------------------------------------------------------------------.                    ,-----------------------------------------------------.
+	      _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX, 					   KC_PAST,   KC_P7,   KC_P8,   KC_P9, KC_ASTR, KC_BSPC,
+	//|--------+--------+--------+--------+----------------------+--------|                    |--------+--------+--------+--------+--------+--------|
+	      XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, 					   KC_PMNS,   KC_P4,   KC_P5,   KC_P6,  KC_EQL,  XXXXXXX,
+	//|--------+--------+--------+--------+--------+----------------------|                    |--------+--------+--------+--------+--------+--------|
+		  XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, 					   KC_PPLS,   KC_P1,   KC_P2,   KC_P3, KC_SLSH,   KC_DEL,
+	//|--------+--------+--------+--------+--------+--------+---------------------|  |--------+--------+--------+--------+--------+--------+--------|
+							               		    XXXXXXX,   XXXXXXX,   KC_TRNS,     KC_ENT,   KC_P0,  KC_PDOT
+										             //`--------------------------'  `--------------------------'
 	),
 
 
@@ -138,14 +139,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_PHPSTORM] = LAYOUT_split_3x6_3(
-  //,---------------------------------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, LALT(ES_1) , XXXXXXX,   XXXXXXX     ,  XXXXXXX  ,  LALT(KC_F12) ,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+------------------------------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX,  XXXXXXX   , XXXXXXX,   XXXXXXX     , LCA(KC_L) ,     XXXXXXX   ,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+------------------------------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX,  XXXXXXX   , XXXXXXX, LCTL(KC_PMNS) ,  XXXXXXX  ,     XXXXXXX   ,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------+------------------------------|  |--------+--------+--------+--------+--------+--------+--------|
-                                                               KC_LALT, _______,  KC_SPC,     _______, _______, KC_LGUI
+  //,---------------------------------------------------------------------------------------.                    ,-----------------------------------------------------.
+      XXXXXXX, LALT(ES_1) , XXXXXXX,   XXXXXXX     ,   XXXXXXX     ,  LCTL(LSFT(KC_PMNS)) ,                       LCTL(LSFT(KC_PPLS))   ,     XXXXXXX         , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+-----------------------------------------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX,  XXXXXXX   , XXXXXXX,   XXXXXXX     ,   LCA(KC_L)    ,    LCTL(KC_PMNS)    ,                          LCTL(KC_PPLS)      , LCTL(LSFT(KC_PSLS)) , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+-----------------------------------------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX,  XXXXXXX   , XXXXXXX,   XXXXXXX     ,  LALT(KC_F12)  ,    LCA(KC_PMNS)     ,                           LCA(KC_PPLS)      ,    LCTL(KC_PSLS)    , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------+------------------------------------|  |--------+--------+--------+--------+--------+--------+--------|
+                                                               KC_LALT, XXXXXXX,  KC_SPC,     _______, XXXXXXX, KC_LGUI
                                                             //`--------------------------'  `--------------------------'
   )
 };
