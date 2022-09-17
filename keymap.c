@@ -26,7 +26,7 @@ enum layers {
   _KEY_SYSTEM,
   _CARACTERS,
   _NUMPAD,
-  _COMANDS,
+  _DIRECTIONS,
   _PHPSTORM,
   _FUNCTIONS,
   _ADJUST
@@ -37,27 +37,20 @@ enum layers {
 #define WIND_LY_SYSTEM LT(_KEY_SYSTEM, KC_LGUI)
 #define ENT_LY_PHPSTORM LT(_PHPSTORM, KC_ENT)
 #define APP_CARACTERS LT(_CARACTERS, KC_APP)
-#define TAB_COMMAND LT(_COMANDS,KC_TAB)
+#define TAB_COMMAND LT(_DIRECTIONS,KC_TAB)
 
-#define LY_COMMANDS MO(_COMANDS)
-#define LY_CARACTERS MO(_CARACTERS)
-#define TAB_LOWER LT(_LOWER, KC_ESC)
-#define LY_PHPSTORM LT(_PHPSTORM, KC_ENT)
-#define LY_ADJUST LT(_ADJUST, KC_ENT)
-#define LY_RAISE LT(_RAISE, KC_TAB)
-
+#define WIND_CTL MT(MOD_LCTL,KC_LGUI)
+#define DEL_ALT MT(MOD_LALT,KC_DEL)
 
 
 enum {
-    TD_CAPLOCK,
-    TD_MENU
+    TD_CAPLOCK
 };
 
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
     // Tap once for ;, twice for :
-    [TD_CAPLOCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
-    [TD_MENU] = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, KC_APP),
+    [TD_CAPLOCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -75,11 +68,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT_split_3x6_3(
   //,---------------------------------------------------------------.                        ,-------------------------------------------------------.
-       TAB_LY_NUMPAD    ,   KC_Q  ,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,     KC_DEL  ,
+       TAB_LY_NUMPAD    ,   KC_Q  ,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,     KC_BSPC  ,
   //|-------------------+---------+--------+--------+--------+--------|                      |--------+--------+--------+--------+--------+----------|
       TD(TD_CAPLOCK)    ,   KC_A  ,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, ES_NTIL,    ES_ACUT ,
   //|-------------------+---------+--------+--------+--------+--------|                      |--------+--------+--------+--------+--------+----------|
-      WIND_LY_SYSTEM    ,   KC_Z  ,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, ES_COMM,  ES_DOT, ES_MINS,    KC_BSPC ,
+          WIND_CTL      ,   KC_Z  ,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, ES_COMM,  ES_DOT, ES_MINS,    DEL_ALT ,
   //|-------------------+---------+--------+--------+--------+--------+----------|  |--------+--------+--------+--------+--------+--------+--------|
                                             MO(_ADJUST), APP_CARACTERS , KC_SPC,       ENT_LY_PHPSTORM  , TAB_COMMAND  , MO(_FUNCTIONS)
                                                   //`----------------------------'  `------------------------------'
@@ -101,9 +94,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------------------------------------------------.                    ,----------------------------------------------------------------.
            KC_TRNS    , LCTL(KC_Q) , LCTL(KC_W) , LWIN(KC_E) ,   KC_TRNS  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS    , KC_TRNS ,  KC_TRNS ,
   //|-----------------+------------+------------+------------+------------+------------|                    |-----------+----------+----------+------------+---------+----------|
-           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS   ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , LWIN(KC_L) , KC_TRNS ,  KC_TRNS ,
+           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS   ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , LCTL(KC_L) , KC_TRNS ,  KC_TRNS ,
   //|-----------------+------------+------------+------------+------------+------------|                    |-----------+----------+----------+------------+---------+----------|
-           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS   , LCTL(KC_C) , LCTL(KC_v) ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS ,  KC_TRNS   , KC_TRNS ,  KC_TRNS ,
+           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS   , LCTL(KC_C) , LCTL(KC_V) ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS ,  KC_TRNS   , KC_TRNS ,  KC_TRNS ,
   //|-----------------+------------+------------+------------+------------+------------|                    |-----------+----------+----------+------------+---------+----------|
                                                              KC_TRNS  ,   KC_TRNS  ,  KC_TRNS  ,    KC_TRNS ,  KC_TRNS , KC_TRNS
                                                            //`---------------------------------'  `------------------------------'
@@ -124,11 +117,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_CARACTERS] = LAYOUT_split_3x6_3(
   //,---------------------------------------------------------------------------------.                    ,----------------------------------------------------------------.
-           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS  ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
+           KC_ESC     ,   KC_TRNS  ,  ES_TILD  ,   ES_GRV   ,   ES_HASH  ,   KC_TRNS ,                         ES_AT   ,  ES_QUOT ,  ES_DQUO , ES_ASTR , ES_PIPE ,  KC_TRNS ,
   //|-----------------+------------+-----------+------------+------------+------------|                    |-----------+----------+----------+---------+---------+----------|
-           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS  ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
+           KC_TRNS    ,   KC_TRNS  ,    KC_P1  ,   ES_PERC  ,   ES_AMPR  ,   ES_SLSH ,                        KC_PPLS  ,  ES_DLR  ,   ES_EQL , ES_RABK , ES_EXLM ,  KC_TRNS ,
   //|-----------------+------------+-----------+------------+------------+------------|                    |-----------+----------+----------+---------+---------+----------|
-           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS  ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
+           KC_TRNS    ,   ES_IQUE  ,  ES_RCBR  ,   ES_RPRN  ,   ES_RBRC  ,   ES_BSLS ,                        KC_PMNS  ,  ES_LBRC ,  ES_LPRN , ES_LCBR , ES_QUES ,  KC_TRNS ,
   //|-----------------+------------+-----------+------------+------------+------------|                    |-----------+----------+----------+---------+---------+----------|
                                                              KC_TRNS  ,   KC_TRNS  ,  KC_TRNS  ,    KC_TRNS ,  KC_TRNS , KC_TRNS
                                                            //`---------------------------------'  `------------------------------'
@@ -147,19 +140,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NUMPAD] = LAYOUT_split_3x6_3(
   //,---------------------------------------------------------------------------------.                    ,----------------------------------------------------------------.
-           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS  ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
+           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS  ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_ASTR  ,   KC_P7  ,   KC_P8  ,  KC_P9  , KC_SLSH ,  KC_TRNS ,
   //|-----------------+------------+-----------+------------+------------+------------|                    |-----------+----------+----------+---------+---------+----------|
-           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS  ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
+           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS  ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_PMNS  ,   KC_P4  ,   KC_P5  ,  KC_P6  , ES_PERC ,  KC_TRNS ,
   //|-----------------+------------+-----------+------------+------------+------------|                    |-----------+----------+----------+---------+---------+----------|
-           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS  ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
+           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS  ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_PPLS  ,   KC_P1  ,   KC_P2  ,  KC_P3  , KC_PDOT ,  KC_TRNS ,
   //|-----------------+------------+-----------+------------+------------+------------|                    |-----------+----------+----------+---------+---------+----------|
-                                                             KC_TRNS  ,   KC_TRNS  ,  KC_TRNS  ,    KC_TRNS ,  KC_TRNS , KC_TRNS
+                                                             KC_TRNS  ,   KC_TRNS  ,  KC_TRNS  ,    KC_TRNS ,  KC_P0   , KC_TRNS
                                                            //`---------------------------------'  `------------------------------'
 
   ),
 
 
-  //  _COMANDS 
+  //  _DIRECTIONS 
   //,--------------------------------------------------------------------------.                    ,--------------------------------------------------------------.
   //     KC_TRNS   ,  KC_TRNS  ,  KC_TRNS  , KC_TRNS ,  KC_TRNS ,   KC_TRNS    ,                      KC_TRNS  , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS  ,
   //|--------------+-----------+-----------+---------+----------+--------------|                    |----------+---------+---------+---------+---------+-----------|
@@ -170,15 +163,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                                                             CTL ,   ALT ,   CTL  ,      ENT  ,  0  ,   AWINDOWS
   //                                                        `--------------------------'  `-------------------------------'
 
-  [_COMANDS] = LAYOUT_split_3x6_3(
+  [_DIRECTIONS] = LAYOUT_split_3x6_3(
   //,---------------------------------------------------------------------------------.                    ,----------------------------------------------------------------.
            KC_TRNS    ,   KC_TRNS  ,  KC_TRNS  ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
   //|-----------------+------------+-----------+------------+------------+------------|                    |-----------+----------+----------+---------+---------+----------|
-           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS  ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
+           KC_TRNS    ,   KC_TRNS  ,  KC_LSFT  ,   KC_TRNS  ,   KC_TAB   ,   KC_TRNS ,                        KC_TRNS  ,  KC_HOME ,   KC_UP  ,  KC_END , KC_TRNS ,  KC_TRNS ,
   //|-----------------+------------+-----------+------------+------------+------------|                    |-----------+----------+----------+---------+---------+----------|
-           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS  ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
+           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS  ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_TRNS  ,  KC_LEFT ,  KC_DOWN , KC_RIGHT , KC_TRNS ,  KC_TRNS ,
   //|-----------------+------------+-----------+------------+------------+------------|                    |-----------+----------+----------+---------+---------+----------|
-                                                             KC_TRNS  ,   KC_TRNS  ,  KC_TRNS  ,    KC_TRNS ,  KC_TRNS , KC_TRNS
+                                                             KC_TRNS  ,   KC_LALT  ,  KC_LCTL  ,    KC_TRNS ,  KC_TRNS , KC_TRNS
                                                            //`---------------------------------'  `------------------------------'
 
   ),
@@ -196,15 +189,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                                                        `--------------------------'  `-------------------------------'
 
   [_PHPSTORM] = LAYOUT_split_3x6_3(
-  //,---------------------------------------------------------------------------------.                    ,----------------------------------------------------------------.
-           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS  ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
-  //|-----------------+------------+-----------+------------+------------+------------|                    |-----------+----------+----------+---------+---------+----------|
-           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS  ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
-  //|-----------------+------------+-----------+------------+------------+------------|                    |-----------+----------+----------+---------+---------+----------|
-           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS  ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
-  //|-----------------+------------+-----------+------------+------------+------------|                    |-----------+----------+----------+---------+---------+----------|
-                                                             KC_TRNS  ,   KC_TRNS  ,  KC_TRNS  ,    KC_TRNS ,  KC_TRNS , KC_TRNS
-                                                           //`---------------------------------'  `------------------------------'
+  //,---------------------------------------------------------------------------------------------.                    ,----------------------------------------------------------------.
+           KC_TRNS    ,   KC_TRNS  ,  LCTL(KC_P7)  ,   LCTL(KC_P8)  ,   LCTL(KC_P9)  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
+  //|-----------------+------------+---------------+----------------+----------------+------------|                    |-----------+----------+----------+---------+---------+----------|
+           KC_TRNS    ,   KC_TRNS  ,  LCTL(KC_P4)  ,   LCTL(KC_P5)  ,   LCTL(KC_P6)  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
+  //|-----------------+------------+---------------+----------------+----------------+------------|                    |-----------+----------+----------+---------+---------+----------|
+           KC_TRNS    ,   KC_TRNS  ,  LCTL(KC_P1)  ,   LCTL(KC_P2)  ,   LCTL(KC_P3)  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
+  //|-----------------+------------+---------------+----------------+----------------+----------------------|  |-------+----------+----------+---------+---------+----------|
+                                                                         KC_TRNS  ,   KC_TRNS  ,  KC_TRNS  ,      KC_TRNS ,  KC_TRNS , KC_TRNS
+                                                                        //`---------------------------------'  `------------------------------'
   ),
 
   //  _FUNCTIONS 
@@ -220,11 +213,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FUNCTIONS] = LAYOUT_split_3x6_3(
   //,---------------------------------------------------------------------------------.                    ,----------------------------------------------------------------.
-           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS  ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
+           KC_TRNS    ,    KC_F1   ,   KC_F2   ,    KC_F3   ,    KC_F4   ,    KC_F5   ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
   //|-----------------+------------+-----------+------------+------------+------------|                    |-----------+----------+----------+---------+---------+----------|
-           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS  ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
+           KC_TRNS    ,    KC_F6   ,   KC_F7   ,    KC_F8   ,    KC_F9   ,    KC_F10  ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
   //|-----------------+------------+-----------+------------+------------+------------|                    |-----------+----------+----------+---------+---------+----------|
-           KC_TRNS    ,   KC_TRNS  ,  KC_TRNS  ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
+           KC_TRNS    ,    KC_F11  ,   KC_F12  ,   KC_TRNS  ,   KC_TRNS  ,   KC_TRNS ,                        KC_TRNS  ,  KC_TRNS ,  KC_TRNS , KC_TRNS , KC_TRNS ,  KC_TRNS ,
   //|-----------------+------------+-----------+------------+------------+------------|                    |-----------+----------+----------+---------+---------+----------|
                                                              KC_TRNS  ,   KC_TRNS  ,  KC_TRNS  ,    KC_TRNS ,  KC_TRNS , KC_TRNS
                                                            //`---------------------------------'  `------------------------------'
@@ -247,6 +240,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 #ifdef OLED_ENABLE
+
+
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master()) {
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
@@ -254,31 +249,31 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   return rotation;
 }
 
-//#define L_BASE 0
-//#define L_LOWER 2
-//#define L_RAISE 4
-//#define L_ADJUST 8
-
 void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
     switch (biton32(layer_state)) {
         case _QWERTY:
             oled_write_ln_P(PSTR("QWERTY"), false);
             break;
+        case _KEY_SYSTEM:
+            oled_write_ln_P(PSTR("KEY SYSTEM"), false);
+        case _CARACTERS:
+            oled_write_ln_P(PSTR("CARACTERES"), false);
+            break;
         case _NUMPAD:
-            oled_write_ln_P(PSTR("NUMPAD"), false);
+            oled_write_ln_P(PSTR("NUMPAT"), false);
             break;
-        case _LOWER:
-            oled_write_ln_P(PSTR("LOWER"), false);
-            break;
-        case _RAISE:
-            oled_write_ln_P(PSTR("RAISE"), false);
-            break;
-        case _ADJUST:
-            oled_write_ln_P(PSTR("ADJUST"), false);
+        case _DIRECTIONS:
+            oled_write_ln_P(PSTR("DIRECCION"), false);
             break;
         case _PHPSTORM:
             oled_write_ln_P(PSTR("PHPSTORM"), false);
+            break;
+        case _FUNCTIONS:
+            oled_write_ln_P(PSTR("FUNTIONS"), false);
+            break;
+        case _ADJUST:
+            oled_write_ln_P(PSTR("AJUSTES"), false);
             break;
             
     }
@@ -337,13 +332,15 @@ void oled_render_logo(void) {
     oled_write_P(crkbd_logo, false);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         oled_render_layer_state();
         oled_render_keylog();
     } else {
         oled_render_logo();
     }
+
+    return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -361,11 +358,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void rgb_matrix_indicators_user(void) {
   #ifdef RGB_MATRIX_ENABLE
   switch (biton32(layer_state)) {
-    case _RAISE:
-      break;
+    //case _RAISE:
+    //  break;
 
-    case _LOWER:    
-      break;
+    //case _LOWER:    
+    //  break;
 
     default:
         if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
