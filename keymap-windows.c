@@ -42,34 +42,6 @@ enum layers {
 #define WIND_CTL MT(MOD_LCTL,KC_LGUI)
 #define DEL_ALT MT(MOD_LALT,KC_DEL)
 
-#define LA_PIPE KC_GRV
-#define LA_EXLM S(KC_1)
-#define LA_QUES S(KC_MINS)
-#define LA_ASTR S(KC_RBRC)
-#define LA_RABK S(KC_NUBS)
-#define LA_LCBR KC_QUOT
-#define LA_DQUO S(KC_2)
-#define LA_EQL  S(KC_0)
-#define LA_LPRN S(KC_8)
-#define LA_LBRC S(KC_QUOT)
-#define LA_DLR  S(KC_4)
-#define LA_QUOT KC_MINS
-#define LA_AT   A(KC_Q)
-#define LA_PPLS KC_RBRC
-#define LA_PMNS KC_SLSH
-#define LA_SLSH S(KC_7) 
-#define LA_BSLS A(KC_MINS)
-#define LA_HASH S(KC_3)
-#define LA_AMPR S(KC_6)
-#define LA_RBRC S(KC_NUHS)
-#define LA_RPRN S(KC_9)
-#define LA_PERC S(KC_5)
-#define LA_ACENT KC_LBRC
-#define LA_TILD A(KC_RBRC)
-#define LA_LABK KC_NUBS
-#define LA_RCBR KC_NUHS
-#define LA_IQUE KC_EQL
-
 
 enum {
     TD_CAPLOCK
@@ -98,9 +70,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------------------------------.                        ,-------------------------------------------------------.
        TAB_LY_NUMPAD    ,   KC_Q  ,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,     KC_BSPC  ,
   //|-------------------+---------+--------+--------+--------+--------|                      |--------+--------+--------+--------+--------+----------|
-      TD(TD_CAPLOCK)    ,   KC_A  ,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, ES_NTIL,    KC_LBRC ,
+      TD(TD_CAPLOCK)    ,   KC_A  ,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, ES_NTIL,    ES_ACUT ,
   //|-------------------+---------+--------+--------+--------+--------|                      |--------+--------+--------+--------+--------+----------|
-          KC_LCMD      ,   KC_Z  ,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, ES_COMM,  ES_DOT, ES_MINS,    DEL_ALT ,
+          WIND_CTL      ,   KC_Z  ,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, ES_COMM,  ES_DOT, ES_MINS,    DEL_ALT ,
   //|-------------------+---------+--------+--------+--------+--------+----------|  |--------+--------+--------+--------+--------+--------+--------|
                                             MO(_ADJUST), APP_CARACTERS , KC_SPC,       ENT_LY_PHPSTORM  , TAB_COMMAND  , MO(_FUNCTIONS)
                                                   //`----------------------------'  `------------------------------'
@@ -145,11 +117,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_CARACTERS] = LAYOUT_split_3x6_3(
   //,---------------------------------------------------------------------------------.                    ,----------------------------------------------------------------.
-           KC_ESC     ,   KC_TRNS  ,  LA_TILD  ,   LA_ACENT ,   LA_HASH  ,   KC_TRNS ,                         LA_AT   ,  LA_QUOT ,  LA_DQUO , LA_ASTR , LA_PIPE ,  KC_TRNS ,
+           KC_ESC     ,   KC_TRNS  ,  ES_TILD  ,   ES_GRV   ,   ES_HASH  ,   KC_TRNS ,                         ES_AT   ,  ES_QUOT ,  ES_DQUO , ES_ASTR , ES_PIPE ,  KC_TRNS ,
   //|-----------------+------------+-----------+------------+------------+------------|                    |-----------+----------+----------+---------+---------+----------|
-           KC_TRNS    ,   KC_TRNS  ,  LA_LABK  ,   LA_PERC  ,   LA_AMPR  ,   LA_SLSH ,                        LA_PPLS  ,  LA_DLR  ,  LA_EQL  , LA_RABK , LA_EXLM ,  KC_TRNS ,
+           KC_TRNS    ,   KC_TRNS  ,    KC_P1  ,   ES_PERC  ,   ES_AMPR  ,   ES_SLSH ,                        KC_PPLS  ,  ES_DLR  ,   ES_EQL , ES_RABK , ES_EXLM ,  KC_TRNS ,
   //|-----------------+------------+-----------+------------+------------+------------|                    |-----------+----------+----------+---------+---------+----------|
-           KC_TRNS    ,   LA_IQUE  ,  LA_RCBR  ,   LA_RPRN  ,   LA_RBRC  ,   LA_BSLS ,                        LA_PMNS  ,  LA_LBRC ,  LA_LPRN , LA_LCBR , LA_QUES ,  KC_TRNS ,
+           KC_TRNS    ,   ES_IQUE  ,  ES_RCBR  ,   ES_RPRN  ,   ES_RBRC  ,   ES_BSLS ,                        KC_PMNS  ,  ES_LBRC ,  ES_LPRN , ES_LCBR , ES_QUES ,  KC_TRNS ,
   //|-----------------+------------+-----------+------------+------------+------------|                    |-----------+----------+----------+---------+---------+----------|
                                                              KC_TRNS  ,   KC_TRNS  ,  KC_TRNS  ,    KC_TRNS ,  KC_TRNS , KC_TRNS
                                                            //`---------------------------------'  `------------------------------'
